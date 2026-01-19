@@ -1,0 +1,46 @@
+{
+  "services": [
+    {
+      "id": "payroll-processing",
+      "title": "Payroll Processing",
+      "shortDescription": "End-to-end payroll processing solutions tailored to your business needs.",
+      "description": "Our comprehensive payroll processing service handles every aspect of your employee payments. From calculating wages and deductions to generating payslips and managing payment schedules, we ensure accuracy and timeliness in every pay cycle.",
+      "icon": "payroll"
+    },
+    {
+      "id": "salary-wage-payments",
+      "title": "Salary & Wage Payments",
+      "shortDescription": "Seamless salary and wage disbursement for your workforce.",
+      "description": "We manage the complete salary and wage payment process, ensuring your employees receive their compensation accurately and on time. Our service covers various payment methods and frequencies to suit your business requirements.",
+      "icon": "payments"
+    },
+    {
+      "id": "superannuation-processing",
+      "title": "Superannuation Processing",
+      "shortDescription": "Compliant superannuation contributions and reporting.",
+      "description": "Navigate the complexities of superannuation with our expert processing service. We handle contributions, SuperStream compliance, and reporting requirements to ensure you meet all regulatory obligations.",
+      "icon": "super"
+    },
+    {
+      "id": "payroll-compliance-reporting",
+      "title": "Payroll Compliance & Reporting",
+      "shortDescription": "Stay compliant with all payroll regulations and reporting requirements.",
+      "description": "Our compliance and reporting service keeps your business aligned with Australian payroll regulations. We handle tax calculations, government reporting, and maintain accurate records for audit purposes.",
+      "icon": "compliance"
+    },
+    {
+      "id": "stp-support",
+      "title": "Single Touch Payroll (STP) Support",
+      "shortDescription": "Complete STP implementation and ongoing support.",
+      "description": "We provide full support for Single Touch Payroll requirements, ensuring your business reports payroll information to the ATO correctly and on time with every pay run.",
+      "icon": "stp"
+    },
+    {
+      "id": "payroll-outsourcing",
+      "title": "Payroll Outsourcing",
+      "shortDescription": "Complete payroll management handled by our expert team.",
+      "description": "Free your team to focus on core business activities by outsourcing your entire payroll function to us. Our dedicated specialists manage all aspects of payroll, from processing to compliance.",
+      "icon": "outsourcing"
+    }
+  ]
+}

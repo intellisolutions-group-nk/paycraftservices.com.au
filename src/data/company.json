@@ -1,0 +1,29 @@
+{
+  "brandName": "PayCraft",
+  "legalName": "Pay Craft Service Pty Ltd",
+  "acn": "693 365 310",
+  "country": "Australia",
+  "state": "New South Wales",
+  "domain": "paycraftservices.com.au",
+  "email": "info@paycraftservices.com.au",
+  "address": {
+    "street": "Unit 15, 2 Patricia Street",
+    "suburb": "Mays Hill",
+    "state": "NSW",
+    "postcode": "2145",
+    "full": "Unit 15, 2 Patricia Street, Mays Hill NSW 2145"
+  },
+  "navigation": {
+    "header": [
+      { "label": "Home", "href": "/" },
+      { "label": "Services", "href": "/services" },
+      { "label": "Security & Compliance", "href": "/security-compliance" },
+      { "label": "About PayCraft", "href": "/about" },
+      { "label": "Contact", "href": "/contact" }
+    ],
+    "footer": [
+      { "label": "Privacy Policy", "href": "/privacy-policy" },
+      { "label": "Terms & Conditions", "href": "/terms-conditions" }
+    ]
+  }
+}
