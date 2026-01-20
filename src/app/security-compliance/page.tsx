@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import AnimatedSection from '@/components/AnimatedSection';
+import JsonLd, { generateBreadcrumbSchema, generateFAQSchema } from '@/components/JsonLd';
 import {
   ShieldIcon,
   LockIcon,
@@ -12,10 +13,37 @@ import {
   UsersIcon,
 } from '@/components/Icons';
 
+const baseUrl = 'https://paycraftservices.com.au';
+
 export const metadata: Metadata = {
-  title: 'Security & Compliance - PayCraft',
-  description: 'Learn about our commitment to data security, privacy protection, and regulatory compliance for payroll services in Australia.',
+  title: 'Security & Compliance - Data Protection & Payroll Compliance Australia',
+  description: 'PayCraft ensures the highest standards of data security and regulatory compliance. Learn about our encryption, access controls, Fair Work compliance, STP, and superannuation obligations.',
+  keywords: [
+    'payroll security',
+    'data protection',
+    'payroll compliance Australia',
+    'STP compliance',
+    'Fair Work compliance',
+    'superannuation compliance',
+    'PAYG withholding',
+    'payroll data security',
+    'Australian privacy compliance',
+  ],
+  alternates: {
+    canonical: `${baseUrl}/security-compliance`,
+  },
+  openGraph: {
+    title: 'Security & Compliance - Data Protection & Payroll Compliance | PayCraft',
+    description: 'Learn about our commitment to data security, privacy protection, and regulatory compliance for payroll services in Australia.',
+    url: `${baseUrl}/security-compliance`,
+    type: 'website',
+  },
 };
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Home', url: baseUrl },
+  { name: 'Security & Compliance', url: `${baseUrl}/security-compliance` },
+]);
 
 export default function SecurityCompliancePage() {
   const securityFeatures = [
@@ -200,8 +228,15 @@ export default function SecurityCompliancePage() {
     },
   ];
 
+  // Generate FAQ schema for structured data
+  const faqSchema = generateFAQSchema(faqs);
+
   return (
     <>
+      {/* Structured Data */}
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={faqSchema} />
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 gradient-bg overflow-hidden">
         {/* Background Pattern */}

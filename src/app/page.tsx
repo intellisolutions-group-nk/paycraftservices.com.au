@@ -1,9 +1,37 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import AnimatedSection from '@/components/AnimatedSection';
 import ServiceCard from '@/components/ServiceCard';
+import JsonLd, { generateFAQSchema, generateLocalBusinessSchema } from '@/components/JsonLd';
 import { CheckIcon, ShieldIcon, ClockIcon, UsersIcon, ChartIcon, CogIcon, ArrowRightIcon } from '@/components/Icons';
 import servicesData from '@/data/services.json';
 import companyData from '@/data/company.json';
+
+export const metadata: Metadata = {
+  title: 'PayCraft - Professional Payroll & Payment Services Australia',
+  description: 'Australia\'s trusted payroll services provider. Professional payroll processing, salary payments, superannuation, STP compliance, and payroll outsourcing for businesses of all sizes. Based in NSW, serving all of Australia.',
+  keywords: [
+    'payroll services Australia',
+    'payroll processing Sydney',
+    'Australian payroll company',
+    'STP compliance services',
+    'superannuation processing',
+    'payroll outsourcing Australia',
+    'salary payments NSW',
+    'payroll management',
+    'PAYG withholding',
+    'payroll specialists',
+  ],
+  alternates: {
+    canonical: 'https://paycraftservices.com.au',
+  },
+  openGraph: {
+    title: 'PayCraft - Professional Payroll & Payment Services Australia',
+    description: 'Professional payroll processing, salary payments, superannuation, and compliance services for Australian businesses. Get started today!',
+    url: 'https://paycraftservices.com.au',
+    type: 'website',
+  },
+};
 
 export default function HomePage() {
   const features = [
@@ -102,8 +130,16 @@ export default function HomePage() {
     },
   ];
 
+  // Generate FAQ schema for structured data
+  const faqSchema = generateFAQSchema(faqs);
+  const localBusinessSchema = generateLocalBusinessSchema();
+
   return (
     <>
+      {/* Structured Data */}
+      <JsonLd data={faqSchema} />
+      <JsonLd data={localBusinessSchema} />
+
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center gradient-bg overflow-hidden">
         {/* Background Pattern */}

@@ -1,17 +1,18 @@
 import Link from 'next/link';
 import companyData from '@/data/company.json';
+import servicesData from '@/data/services.json';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-gray-900 text-gray-300" role="contentinfo" aria-label="Site footer">
       {/* Main Footer */}
       <div className="container-custom section-padding">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-2 group mb-6">
+            <Link href="/" className="inline-flex items-center gap-2 group mb-6" aria-label="PayCraft - Go to homepage">
               <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
                 <span className="text-white font-display font-bold text-xl">P</span>
               </div>
@@ -20,7 +21,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-gray-400 max-w-md mb-6 leading-relaxed">
-              Professional payroll and payment services for Australian businesses.
+              Professional payroll processing, salary payments, superannuation, and compliance services for Australian businesses.
               We handle your payroll so you can focus on what matters most.
             </p>
             <div className="space-y-2">
@@ -29,9 +30,26 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Services Links - Important for SEO */}
+          <nav aria-label="Services navigation">
+            <h4 className="text-white font-semibold text-lg mb-6">Our Services</h4>
+            <ul className="space-y-3">
+              {servicesData.services.map((service) => (
+                <li key={service.id}>
+                  <Link
+                    href={`/services/${service.id}`}
+                    className="text-gray-400 hover:text-white transition-colors duration-300"
+                  >
+                    {service.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           {/* Quick Links */}
-          <div>
-            <h4 className="text-white font-semibold text-lg mb-6">Quick Links</h4>
+          <nav aria-label="Quick links navigation">
+            <h4 className="text-white font-semibold text-lg mb-6">Company</h4>
             <ul className="space-y-3">
               {companyData.navigation.header.map((item) => (
                 <li key={item.href}>
@@ -44,28 +62,42 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-white font-semibold text-lg mb-6">Contact</h4>
+            <h4 className="text-white font-semibold text-lg mb-6">Contact Us</h4>
             <ul className="space-y-4">
               <li>
                 <span className="block text-gray-500 text-sm mb-1">Email</span>
                 <a
                   href={`mailto:${companyData.email}`}
                   className="text-gray-300 hover:text-white transition-colors duration-300"
+                  aria-label={`Email us at ${companyData.email}`}
                 >
                   {companyData.email}
                 </a>
               </li>
               <li>
                 <span className="block text-gray-500 text-sm mb-1">Address</span>
-                <address className="text-gray-400 not-italic leading-relaxed">
-                  {companyData.address.street}<br />
-                  {companyData.address.suburb} {companyData.address.state} {companyData.address.postcode}<br />
-                  {companyData.country}
+                <address className="text-gray-400 not-italic leading-relaxed" itemScope itemType="https://schema.org/PostalAddress">
+                  <span itemProp="streetAddress">{companyData.address.street}</span><br />
+                  <span itemProp="addressLocality">{companyData.address.suburb}</span>{' '}
+                  <span itemProp="addressRegion">{companyData.address.state}</span>{' '}
+                  <span itemProp="postalCode">{companyData.address.postcode}</span><br />
+                  <span itemProp="addressCountry">{companyData.country}</span>
                 </address>
+              </li>
+              <li className="pt-2">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 text-primary-400 hover:text-primary-300 transition-colors font-medium"
+                >
+                  Get in touch
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
               </li>
             </ul>
           </div>
@@ -77,9 +109,9 @@ export default function Footer() {
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-gray-500 text-sm">
-              © {currentYear} {companyData.brandName}. All rights reserved.
+              © {currentYear} {companyData.brandName}. All rights reserved. | Payroll Services Australia
             </p>
-            <div className="flex items-center gap-6">
+            <nav aria-label="Legal navigation" className="flex items-center gap-6">
               {companyData.navigation.footer.map((item) => (
                 <Link
                   key={item.href}
@@ -89,7 +121,7 @@ export default function Footer() {
                   {item.label}
                 </Link>
               ))}
-            </div>
+            </nav>
           </div>
         </div>
       </div>

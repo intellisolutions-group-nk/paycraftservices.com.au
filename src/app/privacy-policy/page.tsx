@@ -1,13 +1,41 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import AnimatedSection from '@/components/AnimatedSection';
+import JsonLd, { generateBreadcrumbSchema } from '@/components/JsonLd';
 import { ShieldIcon, CheckIcon } from '@/components/Icons';
 import companyData from '@/data/company.json';
 
+const baseUrl = 'https://paycraftservices.com.au';
+
 export const metadata: Metadata = {
-  title: 'Privacy Policy - PayCraft',
-  description: 'Read our privacy policy to understand how PayCraft collects, uses, and protects your personal information.',
+  title: 'Privacy Policy - How PayCraft Protects Your Data',
+  description: 'Learn how PayCraft collects, uses, and protects your personal and payroll information. Our privacy policy outlines data security, retention, and your rights under Australian privacy law.',
+  keywords: [
+    'PayCraft privacy policy',
+    'payroll data privacy',
+    'data protection',
+    'Australian privacy law',
+    'personal information protection',
+  ],
+  alternates: {
+    canonical: `${baseUrl}/privacy-policy`,
+  },
+  openGraph: {
+    title: 'Privacy Policy - How PayCraft Protects Your Data',
+    description: 'Learn how PayCraft collects, uses, and protects your personal and payroll information.',
+    url: `${baseUrl}/privacy-policy`,
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Home', url: baseUrl },
+  { name: 'Privacy Policy', url: `${baseUrl}/privacy-policy` },
+]);
 
 export default function PrivacyPolicyPage() {
   const sections = [
@@ -98,6 +126,9 @@ export default function PrivacyPolicyPage() {
 
   return (
     <>
+      {/* Structured Data */}
+      <JsonLd data={breadcrumbSchema} />
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 gradient-bg overflow-hidden">
         <div className="absolute inset-0 opacity-10">

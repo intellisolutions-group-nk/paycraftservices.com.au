@@ -1,0 +1,19 @@
+# Robots.txt for PayCraft - paycraftservices.com.au
+# https://www.robotstxt.org/
+
+User-agent: *
+Allow: /
+
+# Disallow crawling of system directories
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+
+# Sitemap location
+Sitemap: https://paycraftservices.com.au/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Host directive
+Host: https://paycraftservices.com.au

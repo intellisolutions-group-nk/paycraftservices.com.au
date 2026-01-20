@@ -1,17 +1,70 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import AnimatedSection from '@/components/AnimatedSection';
+import JsonLd, { generateBreadcrumbSchema } from '@/components/JsonLd';
 import { serviceIcons, ArrowRightIcon } from '@/components/Icons';
 import servicesData from '@/data/services.json';
 
+const baseUrl = 'https://paycraftservices.com.au';
+
 export const metadata: Metadata = {
-  title: 'Our Services - PayCraft',
-  description: 'Comprehensive payroll processing, salary payments, superannuation, STP support, and payroll outsourcing services for Australian businesses.',
+  title: 'Payroll Services Australia - Complete Payroll Solutions',
+  description: 'Comprehensive payroll services for Australian businesses: payroll processing, salary payments, superannuation, STP compliance, and full payroll outsourcing. Expert payroll solutions for businesses of all sizes.',
+  keywords: [
+    'payroll services',
+    'payroll processing Australia',
+    'salary payments',
+    'superannuation processing',
+    'STP support',
+    'payroll outsourcing',
+    'payroll compliance',
+    'Australian payroll solutions',
+  ],
+  alternates: {
+    canonical: `${baseUrl}/services`,
+  },
+  openGraph: {
+    title: 'Payroll Services Australia - Complete Payroll Solutions | PayCraft',
+    description: 'Comprehensive payroll processing, salary payments, superannuation, STP support, and payroll outsourcing services for Australian businesses.',
+    url: `${baseUrl}/services`,
+    type: 'website',
+  },
 };
 
 export default function ServicesPage() {
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: baseUrl },
+    { name: 'Services', url: `${baseUrl}/services` },
+  ]);
+
+  const servicesListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'PayCraft Payroll Services',
+    description: 'Complete payroll solutions for Australian businesses',
+    numberOfItems: servicesData.services.length,
+    itemListElement: servicesData.services.map((service, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'Service',
+        name: service.title,
+        description: service.description,
+        url: `${baseUrl}/services/${service.id}`,
+        provider: {
+          '@type': 'Organization',
+          name: 'PayCraft',
+        },
+      },
+    })),
+  };
+
   return (
     <>
+      {/* Structured Data */}
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={servicesListSchema} />
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 gradient-bg overflow-hidden">
         {/* Background Pattern */}

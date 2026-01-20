@@ -6,8 +6,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import AnimatedSection from '@/components/AnimatedSection';
 import Modal from '@/components/Modal';
+import JsonLd, { generateLocalBusinessSchema, generateBreadcrumbSchema } from '@/components/JsonLd';
 import { EnvelopeIcon, MapPinIcon, BuildingIcon } from '@/components/Icons';
 import companyData from '@/data/company.json';
+
+const baseUrl = 'https://paycraftservices.com.au';
 
 const schema = yup.object({
   name: yup.string().required('Name is required'),
@@ -18,6 +21,34 @@ const schema = yup.object({
 });
 
 type FormData = yup.InferType<typeof schema>;
+
+// Generate structured data
+const localBusinessSchema = generateLocalBusinessSchema();
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Home', url: baseUrl },
+  { name: 'Contact', url: `${baseUrl}/contact` },
+]);
+
+const contactPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact PayCraft',
+  description: 'Get in touch with PayCraft for professional payroll services in Australia.',
+  url: `${baseUrl}/contact`,
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'PayCraft',
+    email: 'info@paycraftservices.com.au',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Unit 15, 2 Patricia Street',
+      addressLocality: 'Mays Hill',
+      addressRegion: 'NSW',
+      postalCode: '2145',
+      addressCountry: 'AU',
+    },
+  },
+};
 
 export default function ContactPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,6 +95,11 @@ export default function ContactPage() {
 
   return (
     <>
+      {/* Structured Data */}
+      <JsonLd data={localBusinessSchema} />
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={contactPageSchema} />
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 gradient-bg overflow-hidden">
         {/* Background Pattern */}

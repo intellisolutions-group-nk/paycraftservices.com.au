@@ -2,8 +2,11 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import AnimatedSection from '@/components/AnimatedSection';
+import JsonLd, { generateServiceSchema, generateBreadcrumbSchema, generateFAQSchema } from '@/components/JsonLd';
 import { serviceIcons, CheckIcon, ArrowRightIcon, ShieldIcon, ClockIcon, UsersIcon, ChartIcon } from '@/components/Icons';
 import servicesData from '@/data/services.json';
+
+const baseUrl = 'https://paycraftservices.com.au';
 
 interface ServicePageProps {
   params: Promise<{ slug: string }>;
@@ -16,6 +19,26 @@ export async function generateStaticParams() {
   }));
 }
 
+// SEO-optimized titles for each service
+const seoTitles: Record<string, string> = {
+  'payroll-processing': 'Payroll Processing Services Australia - Accurate & Timely',
+  'salary-wage-payments': 'Salary & Wage Payment Services - Secure Employee Payments',
+  'superannuation-processing': 'Superannuation Processing Australia - SuperStream Compliant',
+  'payroll-compliance-reporting': 'Payroll Compliance & Reporting - Stay Compliant',
+  'stp-support': 'Single Touch Payroll (STP) Support - Phase 2 Compliant',
+  'payroll-outsourcing': 'Payroll Outsourcing Australia - Complete Payroll Management',
+};
+
+// SEO-optimized descriptions for each service
+const seoDescriptions: Record<string, string> = {
+  'payroll-processing': 'Professional payroll processing services for Australian businesses. End-to-end payroll management, accurate calculations, award interpretation, and timely payslip generation. Get started today!',
+  'salary-wage-payments': 'Secure and accurate salary & wage payment services. We ensure your employees receive their pay on time, every time. Support for all Australian banks and payment methods.',
+  'superannuation-processing': 'SuperStream compliant superannuation processing for Australian businesses. Accurate SG calculations, multi-fund management, and quarterly reporting. Never miss a super deadline.',
+  'payroll-compliance-reporting': 'Stay compliant with Australian payroll regulations. PAYG withholding, Fair Work compliance, award interpretation, and audit-ready documentation for your business.',
+  'stp-support': 'Complete Single Touch Payroll (STP) Phase 2 support. Real-time ATO reporting, disaggregated data, year-end finalisation, and error correction. Expert STP guidance.',
+  'payroll-outsourcing': 'Full payroll outsourcing services for Australian businesses. Dedicated payroll specialists, complete payroll management, and scalable solutions. Focus on your core business.',
+};
+
 // Generate metadata for each service page
 export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -27,9 +50,29 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
     };
   }
 
+  const title = seoTitles[slug] || `${service.title} Services Australia`;
+  const description = seoDescriptions[slug] || service.description;
+
   return {
-    title: `${service.title} - PayCraft`,
-    description: service.description,
+    title,
+    description,
+    keywords: [
+      service.title.toLowerCase(),
+      `${service.title.toLowerCase()} Australia`,
+      `${service.title.toLowerCase()} services`,
+      'payroll services',
+      'Australian payroll',
+      'PayCraft',
+    ],
+    alternates: {
+      canonical: `${baseUrl}/services/${slug}`,
+    },
+    openGraph: {
+      title: `${title} | PayCraft`,
+      description,
+      url: `${baseUrl}/services/${slug}`,
+      type: 'website',
+    },
   };
 }
 
@@ -416,8 +459,29 @@ export default async function ServicePage({ params }: ServicePageProps) {
   // Get other services for related section
   const otherServices = servicesData.services.filter((s) => s.id !== slug).slice(0, 3);
 
+  // Generate structured data
+  const serviceSchema = generateServiceSchema(
+    service.title,
+    seoDescriptions[slug] || service.description,
+    `${baseUrl}/services/${slug}`,
+    { name: 'PayCraft', url: baseUrl }
+  );
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: baseUrl },
+    { name: 'Services', url: `${baseUrl}/services` },
+    { name: service.title, url: `${baseUrl}/services/${slug}` },
+  ]);
+
+  const faqSchema = generateFAQSchema(details.faqs);
+
   return (
     <>
+      {/* Structured Data */}
+      <JsonLd data={serviceSchema} />
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={faqSchema} />
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 gradient-bg overflow-hidden">
         <div className="absolute inset-0 opacity-10">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import AnimatedSection from '@/components/AnimatedSection';
+import JsonLd, { generateBreadcrumbSchema, generateWebPageSchema } from '@/components/JsonLd';
 import {
   CheckIcon,
   UsersIcon,
@@ -11,10 +12,41 @@ import {
 } from '@/components/Icons';
 import companyData from '@/data/company.json';
 
+const baseUrl = 'https://paycraftservices.com.au';
+
 export const metadata: Metadata = {
-  title: 'About PayCraft - Payroll Services Australia',
-  description: 'Learn about PayCraft and our commitment to providing professional payroll and payment services for Australian businesses.',
+  title: 'About PayCraft - Your Trusted Payroll Partner in Australia',
+  description: 'PayCraft (Pay Craft Service Pty Ltd) provides professional payroll and payment services for Australian businesses. Based in NSW, we offer reliable, accurate, and compliant payroll solutions.',
+  keywords: [
+    'about PayCraft',
+    'PayCraft Australia',
+    'Pay Craft Service Pty Ltd',
+    'Australian payroll company',
+    'payroll specialists NSW',
+    'trusted payroll partner',
+    'payroll services provider',
+  ],
+  alternates: {
+    canonical: `${baseUrl}/about`,
+  },
+  openGraph: {
+    title: 'About PayCraft - Your Trusted Payroll Partner in Australia',
+    description: 'Learn about PayCraft and our commitment to providing professional payroll and payment services for Australian businesses.',
+    url: `${baseUrl}/about`,
+    type: 'website',
+  },
 };
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Home', url: baseUrl },
+  { name: 'About', url: `${baseUrl}/about` },
+]);
+
+const aboutPageSchema = generateWebPageSchema(
+  'About PayCraft',
+  'Learn about PayCraft and our commitment to providing professional payroll and payment services for Australian businesses.',
+  `${baseUrl}/about`
+);
 
 export default function AboutPage() {
   const values = [
@@ -51,6 +83,10 @@ export default function AboutPage() {
 
   return (
     <>
+      {/* Structured Data */}
+      <JsonLd data={breadcrumbSchema} />
+      <JsonLd data={aboutPageSchema} />
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 gradient-bg overflow-hidden">
         {/* Background Pattern */}

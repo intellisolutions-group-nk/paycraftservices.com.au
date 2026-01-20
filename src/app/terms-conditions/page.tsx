@@ -1,13 +1,41 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import AnimatedSection from '@/components/AnimatedSection';
+import JsonLd, { generateBreadcrumbSchema } from '@/components/JsonLd';
 import { DocumentIcon, CheckIcon } from '@/components/Icons';
 import companyData from '@/data/company.json';
 
+const baseUrl = 'https://paycraftservices.com.au';
+
 export const metadata: Metadata = {
-  title: 'Terms & Conditions - PayCraft',
-  description: 'Read the terms and conditions for using PayCraft payroll services.',
+  title: 'Terms & Conditions - PayCraft Service Agreement',
+  description: 'Read the terms and conditions for using PayCraft payroll services. Understand client responsibilities, service obligations, fees, and legal terms.',
+  keywords: [
+    'PayCraft terms and conditions',
+    'payroll service agreement',
+    'terms of service',
+    'client responsibilities',
+    'service terms Australia',
+  ],
+  alternates: {
+    canonical: `${baseUrl}/terms-conditions`,
+  },
+  openGraph: {
+    title: 'Terms & Conditions - PayCraft Service Agreement',
+    description: 'Read the terms and conditions for using PayCraft payroll services.',
+    url: `${baseUrl}/terms-conditions`,
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Home', url: baseUrl },
+  { name: 'Terms & Conditions', url: `${baseUrl}/terms-conditions` },
+]);
 
 export default function TermsConditionsPage() {
   const sections = [
@@ -131,6 +159,9 @@ export default function TermsConditionsPage() {
 
   return (
     <>
+      {/* Structured Data */}
+      <JsonLd data={breadcrumbSchema} />
+
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 gradient-bg overflow-hidden">
         <div className="absolute inset-0 opacity-10">
