@@ -65,8 +65,8 @@ export function generateLocalBusinessSchema() {
     legalName: 'Pay Craft Service Pty Ltd',
     description: 'Professional payroll processing, salary payments, superannuation, and compliance services for Australian businesses.',
     url: 'https://paycraftservices.com.au',
-    logo: 'https://paycraftservices.com.au/logo.png',
-    image: 'https://paycraftservices.com.au/og-image.png',
+    logo: 'https://paycraftservices.com.au/PayCraftLogo.png',
+    image: 'https://paycraftservices.com.au/PayCraftLogo.png',
     email: 'info@paycraftservices.com.au',
     address: {
       '@type': 'PostalAddress',
@@ -168,7 +168,7 @@ export function generateWebPageSchema(
       name: 'PayCraft',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://paycraftservices.com.au/logo.png',
+        url: 'https://paycraftservices.com.au/PayCraftLogo.png',
       },
     },
   };

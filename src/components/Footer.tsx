@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import companyData from '@/data/company.json';
 import servicesData from '@/data/services.json';
 
@@ -12,13 +13,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-2 group mb-6" aria-label="PayCraft - Go to homepage">
-              <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
-                <span className="text-white font-display font-bold text-xl">P</span>
-              </div>
-              <span className="font-display font-bold text-2xl text-white">
-                {companyData.brandName}
-              </span>
+            <Link href="/" className="inline-block mb-6" aria-label="PayCraft - Go to homepage">
+              <Image
+                src="/PayCraftLogoFooter.png"
+                alt="PayCraft Logo"
+                width={200}
+                height={50}
+                className="h-12 w-auto"
+              />
             </Link>
             <p className="text-gray-400 max-w-md mb-6 leading-relaxed">
               Professional payroll processing, salary payments, superannuation, and compliance services for Australian businesses.

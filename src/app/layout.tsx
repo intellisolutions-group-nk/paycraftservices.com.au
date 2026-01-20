@@ -103,7 +103,7 @@ const organizationSchema = {
   name: 'PayCraft',
   legalName: 'Pay Craft Service Pty Ltd',
   url: siteUrl,
-  logo: `${siteUrl}/logo.png`,
+  logo: `${siteUrl}/PayCraftLogo.png`,
   description: 'Professional payroll processing, salary payments, superannuation, and compliance services for Australian businesses.',
   address: {
     '@type': 'PostalAddress',
@@ -152,9 +152,8 @@ export default function RootLayout({
   return (
     <html lang="en-AU" className={`${outfit.variable} ${plusJakarta.variable}`}>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         <link rel="manifest" href="/manifest.json" />
         <script
           type="application/ld+json"

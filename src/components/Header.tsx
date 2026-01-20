@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import companyData from '@/data/company.json';
@@ -72,16 +73,16 @@ export default function Header() {
       >
       <div className="container-custom">
         <nav className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center shadow-lg shadow-primary-600/25 group-hover:shadow-xl group-hover:shadow-primary-600/30 transition-all duration-300">
-              <span className="text-white font-display font-bold text-xl">P</span>
-            </div>
-            <span className={`font-display font-bold text-2xl transition-colors duration-300 ${
-              isScrolled ? 'text-gray-900' : 'text-white'
-            }`}>
-              {companyData.brandName}
-            </span>
+          {/* Logo - switches based on scroll state */}
+          <Link href="/" className="flex items-center group" aria-label="PayCraft - Go to homepage">
+            <Image
+              src={isScrolled ? "/PayCraftLogo.png" : "/PayCraftLogoFooter.png"}
+              alt="PayCraft Logo"
+              width={180}
+              height={45}
+              className="h-10 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -101,7 +102,7 @@ export default function Header() {
                             : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
                           : isServicesActive
                             ? 'text-white'
-                            : 'text-white/80 hover:text-white hover:bg-white/10'
+                            : 'text-white hover:text-white/80 hover:bg-white/10'
                       }`}
                     >
                       {item.label}
@@ -196,7 +197,7 @@ export default function Header() {
                         : 'text-gray-700 hover:text-primary-600 hover:bg-primary-50'
                       : isActive
                         ? 'text-white'
-                        : 'text-white/80 hover:text-white hover:bg-white/10'
+                        : 'text-white hover:text-white/80 hover:bg-white/10'
                   }`}
                 >
                   {item.label}
